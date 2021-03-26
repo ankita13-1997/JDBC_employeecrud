@@ -21,28 +21,7 @@ public class employeeDBservice {
 	static boolean exit=false;
 	static Connection conneection;
 	static Statement statement;
-	static String jdbcUrl="jdbc:mysql://localhost:3306/employee_payroll?useSSL=false";
-	static String username="root";
-	static String password="Ankita@9713";
-	public static Connection getConnection() {
-		
-		  try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			System.out.println("Driver loaded");
-			System.out.println("Connecting to database "+jdbcUrl);
-			conneection=DriverManager.getConnection(jdbcUrl,username,password);
-			System.out.println("don!!!");
-			
-			
-		    }
-		catch(ClassNotFoundException | SQLException  e)
-		{
-			//throw new IllegalStateException("cannot find driver");
-			e.printStackTrace();
-		}
-		
-		  return conneection;
-	}
+	
 		  public static List<Employe> display_EmployeeDetails() throws SQLException
 		  { 
 			 
@@ -50,9 +29,9 @@ public class employeeDBservice {
 			  List<Employe> Employe = new ArrayList<>();
 			  try 
 			  {
-                    conneection=getConnection();
+                    conneection=ServiceConnection.getConnection();
 				    statement= conneection.createStatement();
-					ResultSet result = statement.executeQuery("select * from employee_system");
+					ResultSet result = statement.executeQuery("select * from employee_system ");
 				    while(result.next())
 					{
 					  Employe e= new Employe();
@@ -85,9 +64,9 @@ public class employeeDBservice {
 			     List<Salary> salarylist =new ArrayList<>();
 			     
 			     try {
-			     conneection=getConnection();
+			     conneection=ServiceConnection.getConnection();
 			    statement= conneection.createStatement();
-				ResultSet result = statement.executeQuery("SELECT * from earning");
+				ResultSet result = statement.executeQuery("SELECT * from earning  ");
 				while(result.next())
 				{
 					Salary sal = new Salary();
@@ -121,7 +100,7 @@ public class employeeDBservice {
 				 
 				 try {
 				 System.out.println("inserting into the table ");
-				 conneection=DriverManager.getConnection(jdbcUrl,username,password);
+				 conneection=ServiceConnection.getConnection();
 				 statement1= conneection.prepareStatement("insert into employee_system(name,gender,salary,adress,phone_no,date_join)"
 				 		                                 + "values(?,?,?,?,?,?)");
 				 
